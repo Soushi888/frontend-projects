@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <title>Counter App</title>
+  </head>
+  <body>
+    <main>
+      <h1>Counter App</h1>
+
+      <div class="card">
+        <span id="count">0</span>
+
+        <div class="space-2">
+          <button id="decrement-btn">Decrement</button>
+          <button id="increment-btn">Increment</button>
+        </div>
+
+        <button id="reset-btn">Reset</button>
+
+        <form class="space-2" id="add-form">
+          <input type="number" id="amount" min="-20" max="20" />
+          <button id="add-btn">Add</button>
+        </form>
+      </div>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
