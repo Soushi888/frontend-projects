@@ -3,6 +3,10 @@
   --surface-dark: #bdb681ff;
 }
 
+body {
+  margin: 0;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -89,5 +93,9 @@ p {
 
   &:hover {
     font-size: 2rem;
+  }
+
+  &:active {
+    transform: translate(0, -10px);
   }
 }

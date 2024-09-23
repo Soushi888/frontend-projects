@@ -5,8 +5,8 @@ type TodoItem = {
 
 export class TodoList {
   private todos: TodoItem[] = [];
-  private totalCountElement: HTMLElement;
-  private leftCountElement: HTMLElement;
+  private totalCountElement: HTMLSpanElement;
+  private leftCountElement: HTMLSpanElement;
 
   constructor() {
     this.totalCountElement = document.getElementById("total-count")!;
@@ -18,11 +18,7 @@ export class TodoList {
 
   private setupEventListeners(): void {
     const form = document.querySelector("form");
-    console.log(form);
-
     if (!form) return;
-
-    console.log("setupEventListeners");
 
     form.addEventListener("submit", (event) => this.handleFormSubmit(event));
   }
