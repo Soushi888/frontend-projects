@@ -45,7 +45,7 @@ function handleFormSubmit(event) {
 function renderTodos() {
   todoListEl.innerHTML = "";
 
-  todos.forEach((todo, index) => {
+  for (let todo of todos) {
     const liEl = document.createElement("li");
 
     liEl.innerHTML = `
@@ -63,7 +63,7 @@ function renderTodos() {
     const deleteBtnEl = liEl.querySelector(".delete-btn");
 
     checkboxEl.addEventListener("change", () => {
-      todos[index].done = checkboxEl.checked;
+      todo.done = checkboxEl.checked;
       leftCount = todos.filter((todo) => !todo.done).length;
       countRemainingTodos();
       leftCountEl.textContent = leftCount;
@@ -80,5 +80,5 @@ function renderTodos() {
 
       renderTodos();
     });
-  });
+  }
 }
