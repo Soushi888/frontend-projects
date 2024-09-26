@@ -1,0 +1,69 @@
+:root {
+  --primary-light: hsl(220, 100%, 50%);
+  --primary-dark: hsl(220, 100%, 30%);
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  height: 100vh;
+}
+
+label span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+input[type="number"] {
+  font-size: 1.5rem;
+  text-align: center;
+  width: 150px;
+}
+
+#roll-btn {
+  font-size: 1.5rem;
+  background-color: var(--primary-light);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--primary-dark);
+  }
+
+  &:active {
+    background-color: var(--primary-light);
+  }
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#dice-result {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+#dice-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  img {
+    width: 100px;
+    border-radius: 5px;
+  }
+}
