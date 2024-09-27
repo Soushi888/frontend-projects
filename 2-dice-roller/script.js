@@ -1,10 +1,12 @@
-const rollBtn = document.getElementById("roll-btn");
-const diceResultEl = document.getElementById("dice-result");
-const diceImagesEL = document.getElementById("dice-images");
+const rollBtnEl = document.querySelector("#roll-btn");
+const themeSwitcherEl = document.querySelector("#theme-switcher");
+const diceResultEl = document.querySelector("#dice-result");
+const diceImagesEL = document.querySelector("#dice-images");
 
 function rollDices(event) {
   event.preventDefault();
-  const diceNumberEl = document.getElementById("dice-number");
+
+  const diceNumberEl = document.querySelector("#dice-number");
   const diceNumber = Number(diceNumberEl.value);
   const values = [];
   const images = [];
@@ -27,4 +29,11 @@ function rollDices(event) {
   diceImagesEL.innerHTML = images.join(" ");
 }
 
-rollBtn.addEventListener("click", rollDices);
+rollBtnEl.addEventListener("click", rollDices);
+
+function switchTheme() {
+  const bodyEl = document.querySelector("body");
+  bodyEl.classList.toggle("dark-mode");
+}
+
+themeSwitcherEl.addEventListener("click", switchTheme);
