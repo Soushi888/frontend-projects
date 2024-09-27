@@ -18,7 +18,9 @@ function rollDices(event) {
   for (let i = 0; i < diceNumber; ++i) {
     const value = Math.floor(Math.random() * 6) + 1;
     values.push(value);
-    images.push(`<img src="./images/${value}.png" alt="dice #${value}" />`);
+    images.push(
+      `<img src="./images/${value}.png" alt="dice number ${value}" />`
+    );
   }
 
   diceResultEl.innerHTML = `Dices: ${values.join(", ")}`;
