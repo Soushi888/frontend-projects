@@ -1,43 +1,8 @@
-:root {
-  --surface-light: #e2e0d0ff;
-  --surface-dark: #bdb681ff;
-}
-
-main {
+body {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
-}
-
-button {
-  border-radius: 5px;
-  padding: 6px 8px;
-  cursor: pointer;
-}
-
-p {
-  margin: 0;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 2rem;
-  border-radius: 0.5rem;
-  background-color: var(--surface-light);
-  box-shadow: 0 0.5rem 1rem #0000008f;
-}
-
-.card input {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: none;
-  background-color: var(--surface-dark);
 }
 
 #todo-list {
@@ -65,16 +30,11 @@ p {
 
 .done {
   text-decoration: line-through;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .delete-btn {
   cursor: pointer;
   color: red;
   font-weight: 300;
-}
-
-.space-2 {
-  display: flex;
-  gap: 1rem;
 }

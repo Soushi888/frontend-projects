@@ -4,6 +4,8 @@ const todoInputEl = document.getElementById("todo-input");
 const todoListEl = document.getElementById("todo-list");
 const totalCountEl = document.getElementById("total-count");
 const leftCountEl = document.getElementById("left-count");
+const progressBarEl = document.getElementById("progress-bar");
+const progressPercentageEl = document.getElementById("progress-percentage");
 
 // Global variables
 let todos = [];
@@ -14,6 +16,16 @@ let leftCount = 0;
 function countRemainingTodos() {
   leftCount = todos.filter((todo) => !todo.done).length;
   leftCountEl.textContent = leftCount;
+
+  // Calculate percentage completed
+  const completedPercentage = ((totalCount - leftCount) / totalCount) * 100;
+  console.log(completedPercentage);
+
+  // Update progress bar
+  progressBarEl.value = completedPercentage;
+
+  // Update text content of progress element
+  progressPercentageEl.textContent = `${completedPercentage}% completed`;
 }
 
 // Event listener for form submission
@@ -23,62 +35,85 @@ todoFormEl.addEventListener("submit", handleFormSubmit);
 function handleFormSubmit(event) {
   event.preventDefault();
 
+  // Get user input
+  const newTodoName = todoInputEl.value.trim();
+
+  if (!newTodoName) return;
+
+  // Create new todo object
   const newTodo = {
-    name: todoInputEl.value,
+    name: newTodoName,
     done: false,
   };
 
-  if (newTodo.name.trim()) {
-    todos.push(newTodo);
-    todoInputEl.value = "";
+  // Add new todo to array
+  todos.push(newTodo);
+  todoInputEl.value = "";
 
-    countRemainingTodos();
+  // Update counts
+  totalCount++;
+  totalCountEl.textContent = totalCount;
+  countRemainingTodos();
 
-    totalCount++;
-    totalCountEl.textContent = totalCount;
-
-    renderTodos(todos.length - 1);
-  }
+  // Render new todo
+  renderTodos(todos.length - 1);
 }
 
 // Function to render todos
 function renderTodos(index) {
   todoListEl.innerHTML = "";
 
+  // Iterate through todos and create list items
   for (let todo of todos) {
     const liEl = document.createElement("li");
 
-    liEl.innerHTML = `
-      <label>
-        <input type="checkbox" ${todo.done ? "checked" : ""} />
-        <span class="${todo.done ? "done" : ""}">${todo.name}</span>
-      </label>
-      <span class="delete-btn">X</span>
-    `;
+    // Create checkbox and label
+    const checkboxEl = document.createElement("input");
+    checkboxEl.type = "checkbox";
+    checkboxEl.checked = todo.done;
+    const checkboxLabel = document.createElement("label");
+    checkboxLabel.appendChild(checkboxEl);
+    checkboxLabel.appendChild(document.createTextNode(todo.name));
+
+    // Create delete button
+    const deleteBtnEl = document.createElement("span");
+    deleteBtnEl.className = "delete-btn";
+    deleteBtnEl.textContent = "X";
+
+    // Append elements to li
+    liEl.appendChild(checkboxLabel);
+    liEl.appendChild(deleteBtnEl);
 
     todoListEl.appendChild(liEl);
 
-    // Add event listeners for checkbox and delete button
-    const checkboxEl = liEl.querySelector("input");
-    const deleteBtnEl = liEl.querySelector(".delete-btn");
-
-    checkboxEl.addEventListener("change", () => {
-      todo.done = checkboxEl.checked;
-      leftCount = todos.filter((todo) => !todo.done).length;
-      countRemainingTodos();
-      leftCountEl.textContent = leftCount;
-
-      renderTodos();
-    });
-
-    deleteBtnEl.addEventListener("click", () => {
-      todos.splice(index, 1);
-      countRemainingTodos();
-
-      totalCount--;
-      totalCountEl.textContent = totalCount;
-
-      renderTodos();
-    });
+    // Add event listeners
+    addTodoEventListeners(liEl, todo);
   }
+}
+
+// Helper function to add event listeners
+function addTodoEventListeners(liEl, todo) {
+  const checkboxEl = liEl.querySelector("input");
+  const deleteBtnEl = liEl.querySelector(".delete-btn");
+
+  // Add event listener for checkbox
+  checkboxEl.addEventListener("change", () => {
+    todo.done = checkboxEl.checked;
+    countRemainingTodos();
+    leftCountEl.textContent = leftCount;
+
+    // Re-render list
+    renderTodos();
+  });
+
+  // Add event listener for delete button
+  deleteBtnEl.addEventListener("click", () => {
+    const pos = todos.indexOf(todo);
+    todos.splice(pos, 1);
+    totalCount--;
+    totalCountEl.textContent = totalCount;
+
+    // Re-render list
+    renderTodos();
+  });
 }

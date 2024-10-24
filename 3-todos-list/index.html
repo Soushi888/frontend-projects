@@ -3,14 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
     <title>Todo List</title>
   </head>
   <body>
-    <main>
+    <main class="container">
       <h1>Todo List</h1>
-      <div class="card">
-        <form id="todo-form" class="space-2">
+      <article>
+        <form id="todo-form" class="grid">
           <input
             type="text"
             placeholder="Add todo..."
@@ -19,14 +23,18 @@
           />
           <button type="submit">Add</button>
         </form>
-        <p>
-          Total: <span id="total-count">0</span>, Left:
-          <span id="left-count">0</span>
-        </p>
+        <div>
+          <p>
+            Total: <span id="total-count">0</span>, Left:
+            <span id="left-count">0</span>
+          </p>
+          <small id="progress-percentage">0% completed</small>
+          <progress value="0" max="100" id="progress-bar"></progress>
+        </div>
         <div class="list">
           <ul id="todo-list"></ul>
         </div>
-      </div>
+      </article>
     </main>
 
     <script src="script.js"></script>
