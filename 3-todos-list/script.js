@@ -18,14 +18,24 @@ function countRemainingTodos() {
   leftCountEl.textContent = leftCount;
 
   // Calculate percentage completed
-  const completedPercentage = ((totalCount - leftCount) / totalCount) * 100;
-  console.log(completedPercentage);
+  let completedPercentage = ((totalCount - leftCount) / totalCount) * 100;
+  if (Number.isNaN(completedPercentage)) {
+    completedPercentage = 0;
+  }
 
   // Update progress bar
   progressBarEl.value = completedPercentage;
+  if (totalCount === 0) {
+    progressBarEl.value = 0;
+  }
 
   // Update text content of progress element
-  progressPercentageEl.textContent = `${completedPercentage}% completed`;
+  progressPercentageEl.textContent = `${completedPercentage.toFixed(
+    0
+  )}% completed`;
+  if (totalCount === 0) {
+    progressPercentageEl.textContent = `0% completed`;
+  }
 }
 
 // Event listener for form submission
@@ -72,6 +82,7 @@ function renderTodos(index) {
     checkboxEl.type = "checkbox";
     checkboxEl.checked = todo.done;
     const checkboxLabel = document.createElement("label");
+    checkboxLabel.className = checkboxEl.checked ? "done" : "";
     checkboxLabel.appendChild(checkboxEl);
     checkboxLabel.appendChild(document.createTextNode(todo.name));
 
@@ -99,6 +110,7 @@ function addTodoEventListeners(liEl, todo) {
   // Add event listener for checkbox
   checkboxEl.addEventListener("change", () => {
     todo.done = checkboxEl.checked;
+
     countRemainingTodos();
     leftCountEl.textContent = leftCount;
 
@@ -112,6 +124,7 @@ function addTodoEventListeners(liEl, todo) {
     todos.splice(pos, 1);
     totalCount--;
     totalCountEl.textContent = totalCount;
+    countRemainingTodos();
 
     // Re-render list
     renderTodos();
