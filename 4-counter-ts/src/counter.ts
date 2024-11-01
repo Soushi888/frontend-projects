@@ -1,7 +1,7 @@
 export function setupCounter() {
   let count = 0;
 
-  const countEl: HTMLSpanElement = document.querySelector("#count")!;
+  const counterEl: HTMLSpanElement = document.querySelector("#counter")!;
   const decrementBtn: HTMLButtonElement =
     document.querySelector("#decrement-btn")!;
   const incrementBtn: HTMLButtonElement =
@@ -12,10 +12,9 @@ export function setupCounter() {
   const amount: HTMLInputElement = document.querySelector("#amount")!;
   const addBtn: HTMLButtonElement = document.querySelector("#add-btn")!;
 
-  console.log(countEl, decrementBtn, incrementBtn, resetBtn, amount, addBtn);
+  console.log(counterEl, decrementBtn, incrementBtn, resetBtn, amount, addBtn);
 
-  countEl!.textContent = count.toString();
-  1;
+  counterEl!.textContent = `Count is ${count}`;
 
   function addANumber(number = 2) {
     count += number;
@@ -25,18 +24,20 @@ export function setupCounter() {
 
     changeColorClass(count);
 
-    countEl.textContent = count.toString();
+    counterEl.textContent = `Count is ${count}`;
     amount.value = "";
   }
 
-  incrementBtn!.addEventListener("click", () => addANumber(1));
-
-  decrementBtn!.addEventListener("click", () => addANumber(-1));
+  counterEl!.addEventListener("click", () => addANumber(1));
+  counterEl!.addEventListener("contextmenu", (event) => {
+    event.preventDefault();
+    addANumber(-1);
+  });
 
   function reset() {
     count = 0;
-    countEl!.textContent = count.toString();
-    countEl!.className = "";
+    counterEl!.textContent = `Count is ${count}`;
+    counterEl!.className = "";
   }
 
   resetBtn!.addEventListener("click", reset);
@@ -47,22 +48,22 @@ export function setupCounter() {
   });
 
   function changeColorClass(count: number) {
-    countEl.className = "";
+    counterEl.className = "";
 
     if (count >= 5 && count < 10) {
       console.log("green");
-      countEl.classList.add("green");
+      counterEl.classList.add("green");
     } else if (count >= 10 && count < 15) {
       console.log("yellow");
-      countEl.classList.add("yellow");
+      counterEl.classList.add("yellow");
     } else if (count >= 15) {
       console.log("red");
-      countEl.classList.add("red");
+      counterEl.classList.add("red");
     }
   }
 
   function subscribe() {
-    countEl.addEventListener("change", () => {
+    counterEl.addEventListener("change", () => {
       console.log("count changed:", count);
     });
   }

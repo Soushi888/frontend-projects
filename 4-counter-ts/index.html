@@ -7,20 +7,20 @@
     <title>Counter App</title>
   </head>
   <body>
-    <main>
-      <h1>Counter App</h1>
-
+    <main id="app">
+      <a href="https://vite.dev" target="_blank">
+        <img src="/vite.svg" class="logo" alt="Vite logo" />
+      </a>
+      <a href="https://www.typescriptlang.org/" target="_blank">
+        <img src="/typescript.svg" class="logo vanilla" alt="TypeScript logo" />
+      </a>
+      <h1>Vite + TypeScript</h1>
       <div class="card">
-        <span id="count">0</span>
-
-        <div class="space-2">
-          <button id="decrement-btn">Decrement</button>
-          <button id="increment-btn">Increment</button>
-        </div>
+        <button id="counter" type="button"></button>
 
         <button id="reset-btn">Reset</button>
 
-        <form class="space-2" id="add-form">
+        <form id="add-form">
           <input type="number" id="amount" min="-20" max="20" />
           <button id="add-btn">Add</button>
         </form>

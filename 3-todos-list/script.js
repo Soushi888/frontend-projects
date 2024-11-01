@@ -12,32 +12,6 @@ let todos = [];
 let totalCount = 0;
 let leftCount = 0;
 
-// Function to count remaining todos
-function countRemainingTodos() {
-  leftCount = todos.filter((todo) => !todo.done).length;
-  leftCountEl.textContent = leftCount;
-
-  // Calculate percentage completed
-  let completedPercentage = ((totalCount - leftCount) / totalCount) * 100;
-  if (Number.isNaN(completedPercentage)) {
-    completedPercentage = 0;
-  }
-
-  // Update progress bar
-  progressBarEl.value = completedPercentage;
-  if (totalCount === 0) {
-    progressBarEl.value = 0;
-  }
-
-  // Update text content of progress element
-  progressPercentageEl.textContent = `${completedPercentage.toFixed(
-    0
-  )}% completed`;
-  if (totalCount === 0) {
-    progressPercentageEl.textContent = `0% completed`;
-  }
-}
-
 // Event listener for form submission
 todoFormEl.addEventListener("submit", handleFormSubmit);
 
@@ -67,6 +41,32 @@ function handleFormSubmit(event) {
 
   // Render new todo
   renderTodos(todos.length - 1);
+}
+
+// Function to count remaining todos
+function countRemainingTodos() {
+  leftCount = todos.filter((todo) => !todo.done).length;
+  leftCountEl.textContent = leftCount;
+
+  // Calculate percentage completed
+  let completedPercentage = ((totalCount - leftCount) / totalCount) * 100;
+  if (Number.isNaN(completedPercentage)) {
+    completedPercentage = 0;
+  }
+
+  // Update progress bar
+  progressBarEl.value = completedPercentage;
+  if (totalCount === 0) {
+    progressBarEl.value = 0;
+  }
+
+  // Update text content of progress element
+  progressPercentageEl.textContent = `${completedPercentage.toFixed(
+    0
+  )}% completed`;
+  if (totalCount === 0) {
+    progressPercentageEl.textContent = `0% completed`;
+  }
 }
 
 // Function to render todos
