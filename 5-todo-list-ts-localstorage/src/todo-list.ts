@@ -5,12 +5,17 @@ type TodoItem = {
 
 export class TodoList {
   private todos: TodoItem[] = [];
+
   private totalCountElement: HTMLSpanElement;
   private leftCountElement: HTMLSpanElement;
+  private progressMessageElement: HTMLSpanElement;
+  private progressBarEl: HTMLProgressElement;
 
   constructor() {
     this.totalCountElement = document.getElementById("total-count")!;
     this.leftCountElement = document.getElementById("left-count")!;
+    this.progressBarEl = document.querySelector("#progress-bar")!;
+    this.progressMessageElement = document.querySelector("#progress-message")!;
 
     this.renderTodos();
     this.setupEventListeners();
@@ -48,6 +53,28 @@ export class TodoList {
     this.leftCountElement.textContent = this.todos
       .filter((todo) => !todo.done)
       .length.toString();
+
+    this.updateProgressBar();
+  }
+
+  private updateProgressBar(): void {
+    let totalCount = Number(this.totalCountElement.innerText);
+    let leftCount = Number(this.leftCountElement.innerText);
+    let completedPercentage = ((totalCount - leftCount) / totalCount) * 100;
+    if (Number.isNaN(completedPercentage)) {
+      completedPercentage = 0;
+    }
+
+    this.progressBarEl.value = completedPercentage;
+    if (totalCount === 0) {
+      this.progressBarEl.value = 0;
+    }
+
+    this.progressMessageElement.textContent = `${completedPercentage.toFixed(
+      0
+    )}% completed`;
+
+    this.saveToLocalStorage();
   }
 
   private renderTodos(): void {
@@ -60,11 +87,13 @@ export class TodoList {
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.checked = todo.done;
+      checkbox.id = `todo-${index}`;
       checkbox.addEventListener("change", () => this.toggleTodo(index));
 
-      const span = document.createElement("span");
-      span.textContent = todo.name;
-      span.className = todo.done ? "done" : "";
+      const label = document.createElement("label");
+      label.textContent = todo.name;
+      label.setAttribute("for", checkbox.id);
+      label.className = todo.done ? "done" : "";
 
       const deleteBtn = document.createElement("span");
       deleteBtn.textContent = "X";
@@ -72,7 +101,7 @@ export class TodoList {
       deleteBtn.addEventListener("click", () => this.deleteTodo(index));
 
       li.appendChild(checkbox);
-      li.appendChild(span);
+      li.appendChild(label);
       li.appendChild(deleteBtn);
 
       todoListEl.appendChild(li);
@@ -83,12 +112,16 @@ export class TodoList {
     this.todos[index].done = !this.todos[index].done;
     this.updateCounts();
     this.renderTodos();
+
+    this.saveToLocalStorage();
   }
 
   private deleteTodo(index: number): void {
     this.todos.splice(index, 1);
     this.updateCounts();
     this.renderTodos();
+
+    this.saveToLocalStorage();
   }
 
   public saveToLocalStorage(): void {
