@@ -1,5 +1,5 @@
 {
-  "name": "5-todo-list",
+  "name": "todo-list-ts-localstorage",
   "private": true,
   "version": "0.0.0",
   "type": "module",
