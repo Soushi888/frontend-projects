@@ -5,7 +5,7 @@ const todoListEl = document.getElementById("todo-list");
 const totalCountEl = document.getElementById("total-count");
 const leftCountEl = document.getElementById("left-count");
 const progressBarEl = document.getElementById("progress-bar");
-const progressPercentageEl = document.getElementById("progress-percentage");
+const progressMessageEl = document.getElementById("progress-message");
 
 // Global variables
 let todos = [];
@@ -40,7 +40,7 @@ function handleFormSubmit(event) {
   countRemainingTodos();
 
   // Render new todo
-  renderTodos(todos.length - 1);
+  renderTodos();
 }
 
 // Function to count remaining todos
@@ -70,7 +70,7 @@ function countRemainingTodos() {
 }
 
 // Function to render todos
-function renderTodos(index) {
+function renderTodos() {
   todoListEl.innerHTML = "";
 
   // Iterate through todos and create list items
