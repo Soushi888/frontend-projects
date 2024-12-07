@@ -1,13 +1,80 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>TypeScript Components</title>
+    <link rel="stylesheet" href="/src/style.css" />
   </head>
-  <body>
-    <div id="app"></div>
+  <body
+    class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col items-center justify-center p-4"
+  >
+    <button
+      id="dark-mode-toggle"
+      class="dark-mode-toggle"
+      aria-label="Toggle dark mode"
+    >
+      <span id="dark-mode-icon">🌓</span>
+    </button>
+
+    <div class="container max-w-4xl w-full">
+      <h1
+        class="text-4xl font-bold text-center mb-8 text-primary dark:text-primary-dark"
+      >
+        TypeScript Component Showcase
+      </h1>
+
+      <div class="component-container grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div
+          class="component-section bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
+        >
+          <div id="counter-component"></div>
+        </div>
+
+        <div
+          class="component-section bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
+        >
+          <div id="todo-component"></div>
+        </div>
+      </div>
+    </div>
+
     <script type="module" src="/src/main.ts"></script>
+    <script>
+      const darkModeToggle = document.getElementById("dark-mode-toggle");
+      const darkModeIcon = document.getElementById("dark-mode-icon");
+
+      // Check for saved theme preference or system preference
+      const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
+      let isDarkMode =
+        localStorage.getItem("darkMode") === "true" || prefersDarkMode.matches;
+
+      function updateDarkMode() {
+        if (isDarkMode) {
+          document.documentElement.classList.add("dark");
+          darkModeIcon.textContent = "🌙";
+        } else {
+          document.documentElement.classList.remove("dark");
+          darkModeIcon.textContent = "☀️";
+        }
+        localStorage.setItem("darkMode", isDarkMode.toString());
+      }
+
+      // Initial setup
+      updateDarkMode();
+
+      // Toggle dark mode
+      darkModeToggle.addEventListener("click", () => {
+        isDarkMode = !isDarkMode;
+        updateDarkMode();
+      });
+
+      // Listen for system dark mode changes
+      prefersDarkMode.addListener(() => {
+        isDarkMode = prefersDarkMode.matches;
+        updateDarkMode();
+      });
+    </script>
   </body>
 </html>

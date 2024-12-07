@@ -191,7 +191,7 @@ let inferred = "TypeScript infers this as string";
 interface ButtonProps {
   label: string;
   onClick?: () => void;
-  className?: string;
+  class?: string;
 }
 
 // Type for component state

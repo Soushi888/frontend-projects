@@ -21,16 +21,17 @@ export class Counter extends Component<CounterState> {
 
     this.element.innerHTML = `
       <div class="counter">
-        <div class="counter-value">${this.state.value}</div>
-        <div class="counter-controls">
-          <button class="secondary outline" data-action="decrement">-</button>
-          <button class="primary" data-action="reset">Reset</button>
-          <button class="secondary outline" data-action="increment">+</button>
+        <h2 class="text-2xl font-bold mb-4">Counter</h2>
+        <div class="counter-value text-3xl font-bold mb-4">${this.state.value}</div>
+        <div class="counter-controls flex gap-4 mb-4">
+          <button class="btn btn-secondary" data-action="decrement">-</button>
+          <button class="btn btn-primary" data-action="reset">Reset</button>
+          <button class="btn btn-secondary" data-action="increment">+</button>
         </div>
         <div class="counter-step">
-          <label>
+          <label class="block mb-2">
             Step:
-            <input type="number" value="${this.state.step}" min="1" max="10" class="step-input">
+            <input type="number" value="${this.state.step}" min="1" max="10" class="input w-full p-2 mb-4">
           </label>
         </div>
       </div>

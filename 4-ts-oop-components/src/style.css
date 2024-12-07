@@ -1,156 +1,148 @@
-@import "https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Custom styles on top of Pico CSS */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-md transition-colors duration-300 ease-in-out;
+  }
 
-.component-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
+  .btn-primary {
+    @apply bg-blue-500 text-white hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-600;
+  }
 
-.component-section {
-  background: var(--card-background-color);
-  padding: 1.5rem;
-  border-radius: var(--border-radius);
-  box-shadow: var(--card-box-shadow);
-}
+  .btn-secondary {
+    @apply bg-green-500 text-white hover:bg-green-600 dark:bg-green-700 dark:hover:bg-green-600;
+  }
 
-/* Counter specific styles */
-.counter {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
-}
+  .card {
+    @apply bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 mb-4;
+  }
 
-.counter-value {
-  font-size: 2rem;
-  font-weight: bold;
-  color: var(--primary);
-}
+  .input {
+    @apply border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 
+           focus:outline-none focus:ring-2 focus:ring-blue-500 
+           dark:bg-gray-700 dark:text-gray-200 dark:focus:ring-blue-600;
+  }
 
-.counter-controls {
-  display: flex;
-  gap: 0.5rem;
-}
+  /* Counter specific styles */
+  .counter {
+    @apply flex flex-col items-center gap-4;
+  }
 
-.counter button {
-  margin: 0;
-}
+  .counter-value {
+    @apply text-2xl font-bold text-blue-500 dark:text-blue-400;
+  }
 
-/* Todo specific styles */
-.todo {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+  .counter-controls {
+    @apply flex gap-2;
+  }
 
-.todo-input {
-  display: flex;
-  gap: 0.5rem;
-}
+  .counter button {
+    @apply m-0;
+  }
 
-.todo-input input {
-  margin: 0;
-}
+  .step-input {
+    @apply dark:bg-gray-700 dark:text-gray-200;
+  }
 
-.todo-input button {
-  margin: 0;
-}
+  /* Todo specific styles */
+  .todo {
+    @apply flex flex-col gap-4;
+  }
 
-.todo-filters {
-  display: flex;
-  gap: 0.5rem;
-}
+  .todo-input {
+    @apply flex gap-2;
+  }
 
-.todo-filters button {
-  margin: 0;
-  flex: 1;
-}
+  .todo-input input {
+    @apply m-0;
+  }
 
-.todo-filters button.active {
-  background: var(--primary);
-  color: var(--primary-inverse);
-}
+  .todo-input button {
+    @apply m-0;
+  }
 
-.todo-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
+  .todo-filters {
+    @apply flex gap-2;
+  }
 
-.todo-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.75rem 1rem;
-  background: var(--card-sectionning-background-color);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--card-border-color);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
+  .todo-filters button {
+    @apply m-0 flex-1;
+  }
 
-.todo-item:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--card-box-shadow);
-}
+  .todo-filters button.active {
+    @apply bg-blue-500 text-white dark:bg-blue-700;
+  }
 
-.todo-item.completed {
-  background: var(--card-sectionning-background-color);
-  opacity: 0.75;
-}
+  .todo-list {
+    @apply list-none p-0 m-0 flex flex-col gap-2;
+  }
 
-.todo-item.completed .todo-text {
-  text-decoration: line-through;
-  color: var(--muted-color);
-}
+  .todo-item {
+    @apply flex items-center gap-4 p-2 
+           bg-white dark:bg-gray-800 
+           rounded-lg border border-gray-200 dark:border-gray-700 
+           transition-transform duration-200 ease-in-out;
+  }
 
-.todo-item input[type="checkbox"] {
-  margin: 0;
-  cursor: pointer;
-}
+  .todo-item:hover {
+    @apply transform -translate-y-1 shadow-md dark:shadow-xl;
+  }
 
-.todo-text {
-  flex: 1;
-  font-size: 1rem;
-  line-height: 1.4;
-  margin: 0;
-  padding: 0.25rem 0;
-}
+  .todo-item.completed {
+    @apply bg-gray-100 dark:bg-gray-900 opacity-75;
+  }
 
-.delete-todo {
-  background: transparent;
-  border: none;
-  color: var(--del-color);
-  padding: 0;
-  margin: 0;
-  font-size: 1rem;
-  opacity: 0;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  width: 24px;
-  height: 24px;
-  min-width: unset;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-}
+  .todo-item.completed .todo-text {
+    @apply line-through text-gray-500 dark:text-gray-600;
+  }
 
-.todo-item:hover .delete-todo {
-  opacity: 1;
-}
+  .todo-item input[type="checkbox"] {
+    @apply m-0 cursor-pointer dark:bg-gray-700 dark:border-gray-600;
+  }
 
-.delete-todo:hover {
-  transform: scale(1.1);
-  background: var(--del-color);
-  color: white;
+  .todo-text {
+    @apply flex-1 text-lg leading-5 m-0 p-0;
+  }
+
+  .delete-todo {
+    @apply bg-transparent border-none 
+           text-red-500 dark:text-red-400 
+           p-0 m-0 text-lg opacity-0 
+           transition-opacity duration-200 ease-in-out 
+           w-6 h-6 min-w-0 flex items-center justify-center rounded-lg;
+  }
+
+  .todo-item:hover .delete-todo {
+    @apply opacity-100;
+  }
+
+  .delete-todo:hover {
+    @apply transform scale-110 
+           bg-red-100 text-red-700 
+           dark:bg-red-900 dark:text-red-300;
+  }
+
+  .container {
+    @apply max-w-4xl mx-auto p-4;
+  }
+
+  .component-container {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4 mt-4;
+  }
+
+  .component-section {
+    @apply bg-white dark:bg-gray-800 p-3 rounded-lg shadow-md dark:shadow-xl;
+  }
+
+  /* Dark mode toggle */
+  .dark-mode-toggle {
+    @apply fixed top-4 right-4 z-50 
+           bg-gray-200 dark:bg-gray-700 
+           text-gray-800 dark:text-gray-200 
+           p-2 rounded-full 
+           hover:bg-gray-300 dark:hover:bg-gray-600 
+           transition-colors duration-300;
+  }
 }
